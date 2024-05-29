@@ -264,6 +264,22 @@ Example (this is NOT the answer just an example of what goes in the {}):
 Note: This code should still run successfully even if the numbers were to change.
 
 ```{r}
+num_temps_colorado <- as.data.frame(apply(max_temps_colorado, 1:2, as.numeric))
+
+num_temps_colorado <- num_temps_colorado[, -c(1, 2)]
+
+median_temps <- apply(num_temps_colorado, 1, median)
+
+years <- 1895:2020
+
+medtemp_per_year <- data.frame(year = years, median_temp = median_temps)
+
+max_med_temp <- medtemp_per_year$median_temp[which.max(medtemp_per_year$median_temp)]
+year_max <- medtemp_per_year$year[which.max(medtemp_per_year$median_temp)]
+min_med_temp <- medtemp_per_year$median_temp[which.min(medtemp_per_year$median_temp)]
+year_min <- medtemp_per_year$year[which.min(medtemp_per_year$median_temp)]
+
+print(paste0("The maximum median annual temperature of ", max_med_temp, " occurred in ", year_max, " and the minimum median annual temperature of ", min_med_temp, " occurred in ", year_min, "."))
 
 ```
 

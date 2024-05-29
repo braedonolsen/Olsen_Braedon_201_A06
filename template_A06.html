@@ -3365,12 +3365,12 @@ $SO
 <span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(mat_rand_rounded)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     [,1] [,2] [,3] [,4] [,5]
-[1,]   80 1000 1000 2000   40
-[2,]  100  200 1000  400 2000
-[3,]  700  700  800  900  200
-[4,]   50 1000   30 1000  200
-[5,] 2000   90   70 2000 1000
-[6,]  700   60   90   60 1000</code></pre>
+[1,]  600   80  700  200  900
+[2,]  600 2000 1000  800 1000
+[3,] 2000  600 1000 1000 2000
+[4,] 1000   20  300   20   60
+[5,]   30  900 2000   10  300
+[6,]   40   40   40 2000   30</code></pre>
 </div>
 </div>
 </section>
@@ -3465,6 +3465,27 @@ $SO
 <p>Example (this is NOT the answer just an example of what goes in the {}):</p>
 <p>“The maximum median annual temperature of 68.25 occurred in 2017 and the minimum median annual temperature of 57.15 occurred in 1907.”</p>
 <p>Note: This code should still run successfully even if the numbers were to change.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>num_temps_colorado <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">apply</span>(max_temps_colorado, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>, as.numeric))</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>num_temps_colorado <span class="ot">&lt;-</span> num_temps_colorado[, <span class="sc">-</span><span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>)]</span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>median_temps <span class="ot">&lt;-</span> <span class="fu">apply</span>(num_temps_colorado, <span class="dv">1</span>, median)</span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>years <span class="ot">&lt;-</span> <span class="dv">1895</span><span class="sc">:</span><span class="dv">2020</span></span>
+<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a>medtemp_per_year <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">year =</span> years, <span class="at">median_temp =</span> median_temps)</span>
+<span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-11"><a href="#cb41-11" aria-hidden="true" tabindex="-1"></a>max_med_temp <span class="ot">&lt;-</span> medtemp_per_year<span class="sc">$</span>median_temp[<span class="fu">which.max</span>(medtemp_per_year<span class="sc">$</span>median_temp)]</span>
+<span id="cb41-12"><a href="#cb41-12" aria-hidden="true" tabindex="-1"></a>year_max <span class="ot">&lt;-</span> medtemp_per_year<span class="sc">$</span>year[<span class="fu">which.max</span>(medtemp_per_year<span class="sc">$</span>median_temp)]</span>
+<span id="cb41-13"><a href="#cb41-13" aria-hidden="true" tabindex="-1"></a>min_med_temp <span class="ot">&lt;-</span> medtemp_per_year<span class="sc">$</span>median_temp[<span class="fu">which.min</span>(medtemp_per_year<span class="sc">$</span>median_temp)]</span>
+<span id="cb41-14"><a href="#cb41-14" aria-hidden="true" tabindex="-1"></a>year_min <span class="ot">&lt;-</span> medtemp_per_year<span class="sc">$</span>year[<span class="fu">which.min</span>(medtemp_per_year<span class="sc">$</span>median_temp)]</span>
+<span id="cb41-15"><a href="#cb41-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-16"><a href="#cb41-16" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste0</span>(<span class="st">&quot;The maximum median annual temperature of &quot;</span>, max_med_temp, <span class="st">&quot; occurred in &quot;</span>, year_max, <span class="st">&quot; and the minimum median annual temperature of &quot;</span>, min_med_temp, <span class="st">&quot; occurred in &quot;</span>, year_min, <span class="st">&quot;.&quot;</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] &quot;The maximum median annual temperature of 63.95 occurred in 1934 and the minimum median annual temperature of 50.85 occurred in 1984.&quot;</code></pre>
+</div>
+</div>
 </section>
 </section>
 <section id="question-5-5-points" class="level2">
@@ -3473,18 +3494,18 @@ $SO
 <p>Example: The number 312 would return 6 (3 + 1 + 2)</p>
 <p>Run your function with 935068.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>sum_digits <span class="ot">&lt;-</span> <span class="cf">function</span>(number){</span>
-<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(number <span class="sc">==</span> <span class="dv">0</span>){ <span class="co"># base case</span></span>
-<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(<span class="dv">0</span>)</span>
-<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span>{ <span class="co"># recursive case</span></span>
-<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>    last_digit <span class="ot">&lt;-</span> number <span class="sc">%%</span> <span class="dv">10</span></span>
-<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>    trunc_num <span class="ot">&lt;-</span> number <span class="sc">%/%</span> <span class="dv">10</span></span>
-<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(last_digit <span class="sc">+</span> <span class="fu">sum_digits</span>(trunc_num))</span>
-<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb41-11"><a href="#cb41-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-12"><a href="#cb41-12" aria-hidden="true" tabindex="-1"></a><span class="fu">sum_digits</span>(<span class="dv">935068</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>sum_digits <span class="ot">&lt;-</span> <span class="cf">function</span>(number){</span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(number <span class="sc">==</span> <span class="dv">0</span>){ <span class="co"># base case</span></span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(<span class="dv">0</span>)</span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span>{ <span class="co"># recursive case</span></span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>    last_digit <span class="ot">&lt;-</span> number <span class="sc">%%</span> <span class="dv">10</span></span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a>    trunc_num <span class="ot">&lt;-</span> number <span class="sc">%/%</span> <span class="dv">10</span></span>
+<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(last_digit <span class="sc">+</span> <span class="fu">sum_digits</span>(trunc_num))</span>
+<span id="cb43-9"><a href="#cb43-9" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb43-10"><a href="#cb43-10" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb43-11"><a href="#cb43-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-12"><a href="#cb43-12" aria-hidden="true" tabindex="-1"></a><span class="fu">sum_digits</span>(<span class="dv">935068</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 31</code></pre>
 </div>
