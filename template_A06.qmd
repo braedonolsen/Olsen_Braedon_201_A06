@@ -115,7 +115,13 @@ Add a new named element to the end of each player's list called `height`. The he
 Print the `player_info` list to prove you were successful.
 
 ```{r}
+player_height <- c('MJ' = 78, 'LJ' = 81, 'KB' = 78, 'KA' = 86, 'SO' = 85)
 
+for (player in names(player_info)){
+  player_info[[player]]$height <- player_height[player]
+}
+
+print(player_info)
 ```
 
 
@@ -134,7 +140,13 @@ Hint: initialize an empty list
 Note: this must still run correctly even if the values were to change or if another player were added to the list or if the player order changed.
 
 ```{r}
+points_per_game <- list()
 
+for(player in names(player_info)){
+  points_per_game[[player]] <- player_info[[player]]$points / player_info[[player]]$games_played
+}
+
+print(points_per_game)
 ```
 
 
@@ -145,7 +157,9 @@ Use the list created in Part c and an appropriate apply function to round each v
 Store the output as a vector and print the results.
 
 ```{r}
+ppg_rounded <- sapply(points_per_game, round, 2)
 
+print(ppg_rounded)
 ```
 
 
@@ -201,7 +215,18 @@ max_temps <- read_tsv("state_max_temps.tsv") |>
 Calculate the average temperature for each month across the whole data frame (using the data for all three states together).
 
 ```{r}
-
+mean(max_temps$jan)
+mean(max_temps$feb)
+mean(max_temps$mar)
+mean(max_temps$apr)
+mean(max_temps$may)
+mean(max_temps$jun)
+mean(max_temps$jul)
+mean(max_temps$aug)
+mean(max_temps$sep)
+mean(max_temps$oct)
+mean(max_temps$nov)
+mean(max_temps$dec)
 ```
 
 
@@ -216,7 +241,9 @@ Create three new data frames by slicing the data by state.
 No need to print any output here.
 
 ```{r}
-
+max_temps_colorado <- max_temps[max_temps$state == 'CO', ]
+max_temps_ohio <- max_temps[max_temps$state == 'OH', ]
+max_temps_virginia <- max_temps[max_temps$state == 'VA', ]
 ```
 
 
